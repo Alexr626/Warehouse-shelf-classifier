@@ -1,0 +1,14 @@
+## Running the Docker Container
+
+To start the container and mount the local data directory:
+
+1. Ensure you are in the root directory of this project.
+2. Run the following command to start the container and mount the data folder:
+
+   ```bash
+   docker run -d -p 8888:8888 --name warehouse-container -v "$(pwd)" warehouse-classifier-api
+
+
+### Summary
+
+- **Docker Root Directory**: Use `/workspace` as the root directory inside Docker for consistency.
