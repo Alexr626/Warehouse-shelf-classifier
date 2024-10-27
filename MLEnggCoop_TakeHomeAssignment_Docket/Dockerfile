@@ -14,6 +14,7 @@ RUN pip install opencv-python-headless
 RUN pip install Pillow
 RUN pip install scipy
 
+
 WORKDIR /workspace
 COPY . /workspace
 
