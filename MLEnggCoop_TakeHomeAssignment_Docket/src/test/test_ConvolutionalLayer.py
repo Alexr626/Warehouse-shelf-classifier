@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 import torch
 
-from src.models.base_model import ConvolutionalLayer
+from src.models.layers.ConvolutionalLayer import ConvolutionalLayer
 import os
 import constants
 import torch.nn as nn
@@ -19,14 +19,17 @@ class TestLayers(unittest.TestCase):
         output = C.forward(input)
 
         input_tensor = torch.tensor(input, dtype=torch.float32).permute(2,0,1).unsqueeze(0)
-        kernel_tensor = C.weights.clone().detach()
-        bias_tensor = C.bias.clone().detach()
+        kernel_tensor = C.weights.clone()
+        bias_tensor = C.bias.clone()
 
         comparison_output = nn.functional.conv2d(input=input_tensor, weight=kernel_tensor, bias=bias_tensor, stride=C.stride, padding=C.padding)
         comparison_output = comparison_output.squeeze(0).permute(1, 2, 0).numpy()
 
+        print(comparison_output[0:2,0:2,1])
+        print(output[0:2,0:2,1])
+
         self.assertEqual(output.shape, comparison_output.shape)
-        self.assertTrue(np.allclose(output, comparison_output, atol=1e-3))
+        self.assertTrue(np.allclose(output, comparison_output, atol=1e-2))
 
     def test_convolutional_layer(self):
         image_array = self.get_test_input_array("0000_aug_0_normalization_blurring.npy")

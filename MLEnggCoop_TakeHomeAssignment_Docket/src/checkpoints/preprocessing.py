@@ -11,6 +11,9 @@ class Augmenter:
     """Class with methods to apply individual augmentations."""
 
     @staticmethod
+    def no_transform(img):
+        return img
+    @staticmethod
     def normalization(img):
         return cv.normalize(img, None, 0, 255, cv.NORM_MINMAX)
 
@@ -65,7 +68,7 @@ def generate_augmented_samples(image_paths, transformation_types, transformation
 
 def generate_augmented_training_data(image_paths, transformation_types, transformations):
     """
-    Creates augmented training data and saves it as numpy arrays to training_data/preprocessed_arrays.
+    Creates augmented train_mode data and saves it as numpy arrays to training_data/preprocessed_arrays.
     """
     save_dir = os.path.join(constants.ROOT_DIR, "training_data", "preprocessed_arrays")
     os.makedirs(save_dir, exist_ok=True)
@@ -92,11 +95,12 @@ def main():
     all_image_names = (labels["image_path"]
                        .apply(lambda img_name: os.path.join(constants.ROOT_DIR, "training_data", img_name)).tolist())
 
-    # Combine lists for final training image paths
+    # Combine lists for final train_mode image paths
     sample_image_names = filled_sample_img_names + empty_sample_img_names
 
     # Define transformations and combinations
     transformation_types = {
+        'no_transform': augmenter.no_transform,
         'normalization': augmenter.normalization,
         'blurring': augmenter.blurring,
         'hflip': augmenter.hflip,
@@ -105,7 +109,8 @@ def main():
     }
 
     transformations = [
-        'normalization',
+        ('no_transform',),
+        ('normalization',),
         ('normalization', 'blurring'),
         ('normalization', 'hflip'),
         ('normalization', 'rotate_90'),
@@ -118,7 +123,7 @@ def main():
     # Generate augmented samples for viewing
     generate_augmented_samples(sample_image_names, transformation_types, transformations)
 
-    # Generate augmented training data
+    # Generate augmented train_mode data
     generate_augmented_training_data(all_image_names, transformation_types, transformations)
 
     print("Augmentation and preprocessing completed successfully.")
