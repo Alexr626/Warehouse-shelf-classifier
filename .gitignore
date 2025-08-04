@@ -1,8 +1,4 @@
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-.ipynb_checkpoints
-.DS_Store
-*.Rproj
-.local
+# Default ignored files
+/.idea
+# Datasource local storage ignored files
+/training_data
