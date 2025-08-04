@@ -1,6 +1,9 @@
 # Warehouse Shelf Classifier API Service
 This is a project I created prior to the start of an internship I completed for Nokia Bell Labs' AIMS (Autonomous Inventory Monitoring Service) team. Using drones with cameras attached, and later computer vision segmentation and classification models during postprocessing, the team created a monitoring service for warehouses, allowing their clients to keep better track of their inventory and recover any of it that was lost. 
 
+## Project Overview
+This project implements an end-to-end machine learning pipeline for automated warehouse inventory monitoring. The system trains ResNet and EfficientNet-B0 convolutional neural networks to classify warehouse shelf images as either "empty" or "filled", then deploys the trained model as a REST API service using FastAPI and Docker. The workflow includes data preprocessing with augmentation techniques, model training with class-weighted loss to handle imbalanced datasets, and containerized deployment for real-time inference on new warehouse images.
+
 This project served as a preparation for my internship. More context about the results and directions of how to train the vision models and deploy them for classification on new images of warehouse shelves are given below. Enjoy!
 
 ## Author
